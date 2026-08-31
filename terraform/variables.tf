@@ -1,25 +1,24 @@
 variable "project_name" {
-  description = "azure_monitoring"
+  description = "Name of the project"
   type        = string
-}
+}   
 
 variable "environment" {
-  description = "dev"
+  description = "deployment environment"
   type        = string
 }
 
 variable "location" {
-  description = "central india"
+  description = "Azure region where the resources will be deployed"
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "rg-azure-monitoring-dev"
+  description = "Name of the azure resource group"
   type        = string
 }
 
 variable "vm_name" {
-  description = "vm-azure-monitoring-dev"
+  description = "Name of the monitoring virtual machine"
   type        = string
 }
-
