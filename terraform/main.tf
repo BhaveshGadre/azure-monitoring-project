@@ -49,6 +49,7 @@ resource "azurerm_network_interface" "monitoring" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.monitoring.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.monitoring.id
   }
 
   tags = local.common_tags
