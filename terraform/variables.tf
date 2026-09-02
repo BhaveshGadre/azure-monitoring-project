@@ -43,3 +43,7 @@ variable "nsg_name" {
   description = "Name of the network security group"
   type        = string
 }
+variable "admin_source_ip" {
+  description = "Public IP address allowed to access the monitoring VM"
+  type        = string
+}
