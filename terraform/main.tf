@@ -53,3 +53,12 @@ resource "azurerm_network_interface" "monitoring" {
 
   tags = local.common_tags
 }
+resource "azurerm_public_ip" "monitoring" {
+  name                = "${var.vm_name}-pip"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+
+  tags = local.common_tags
+}
