@@ -47,3 +47,15 @@ variable "admin_source_ip" {
   description = "Public IP address allowed to access the monitoring VM"
   type        = string
 }
+variable "vm_size" {
+  description = "Size of the monitoring virtual machine"
+  type        = string
+}
+variable "vm_admin_username" {
+  description = "Admin username for the monitoring virtual machine"
+  type        = string
+}
+variable "ssh_public_key" {
+  description = "SSH public key for the monitoring virtual machine"
+  type        = string
+}
