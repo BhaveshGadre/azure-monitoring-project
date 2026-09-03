@@ -113,3 +113,45 @@ resource "azurerm_virtual_machine_extension" "azure_monitor_agent" {
 
   tags = local.common_tags
 }
+
+resource "azurerm_monitor_data_collection_rule" "monitoring" {
+  name                = "dcr-azure-monitoring-dev"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+
+  destinations {
+    log_analytics {
+      name                  = "log-Analytics-Destination"
+      workspace_resource_id = azurerm_log_analytics_workspace.monitoring.id
+    }
+  }
+
+  data_flow {
+    streams      = ["Microsoft-Perf"]
+    destinations = ["log-Analytics-Destination"]
+  }
+
+  data_sources {
+    performance_counter {
+      name                          = "performanceCounters"
+      streams                       = ["Microsoft-Perf"]
+      sampling_frequency_in_seconds = 60
+      counter_specifiers = [
+        "\\Processor(_Total)\\% Processor Time",
+        "\\Memory\\% Committed Bytes In Use",
+        "\\LogicalDisk(_Total)\\% Free Space",
+        "\\Network Interface(*)\\Bytes Total/sec"
+      ]
+
+    }
+  }
+  tags = local.common_tags
+}
+resource "azurerm_monitor_data_collection_rule_association" "monitoring" {
+  name                    = "dcr-association-azure-monitoring-dev"
+  target_resource_id      = azurerm_linux_virtual_machine.monitoring.id
+  data_collection_rule_id = azurerm_monitor_data_collection_rule.monitoring.id
+}
+
+
+
